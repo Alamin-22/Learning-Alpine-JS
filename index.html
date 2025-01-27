@@ -13,10 +13,19 @@
 
 
     <h1 class="text-5xl text-center text-green-400">Alpine Js</h1>
-    <div x-data="{open: true, name: 'Md. Al Amin Mollik'}" class="w-1/2 mx-auto">
+    <div x-data="{
+        open: true,
+        name: 'Md. Al Amin Mollik', 
+        posts: [
+                {title:'Post 1'},
+                {title:'Post 2'},
+                {title:'Post 3'},
+                {title:'Post 4'},
+                {title:'Post 5'},
+            ]
+            }" class="w-1/2 mx-auto">
         <!-- x-on & x-bind -->
-        <button x-on:click="open = !open" 
-        :class="open ? 'bg-blue-800' : 'bg-slate-700'"
+        <button x-on:click="open = !open" :class="open ? 'bg-blue-800' : 'bg-slate-700'"
             class=" text-white px-4 py-2 rounded-xl active:scale-90 transition-transform duration-150 hover:cursor-ponter">
             Toggle
         </button>
@@ -29,6 +38,31 @@
         </div>
         <div>
             The value of the name is <span x-text="name" class="font-bold"></span>
+        </div>
+
+
+        <h3 class="text-2xl mt-6 font-bold">Posts </h3>
+        <!--  -->
+        <template x-for="post in posts">
+            <div x-text="post.title"></div>
+        </template>
+        <button @click="posts.push({title:'New Post'})" class="bg-blue-800 text-white px-4 py-2 rounded-xl
+             active:scale-90 transition-transform duration-150 hover:cursor-ponter">
+            Add Post
+        </button>
+
+        <!-- Exploring ABout Ref in AlpineJs -->
+        <div class="my-6">
+            <div x-ref="text"></div>
+
+            <button @click="$refs.text.innerText='This Text is added Via AlpineJs'" class="bg-blue-800 text-white px-4 py-2 rounded-xl
+            active:scale-90 transition-transform duration-150 hover:cursor-ponter">
+                Add Text
+            </button>
+            <button @click="$refs.text.remove()" class="bg-blue-800 text-white px-4 py-2 rounded-xl
+                        active:scale-90 transition-transform duration-150 hover:cursor-ponter">
+                Remove Text
+            </button>
         </div>
     </div>
 
