@@ -7,9 +7,10 @@
     <title>Trying Out Alpine Js</title>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body>
+<body class="mb-40">
 
 
     <h1 class="text-5xl text-center text-green-400">Alpine Js</h1>
@@ -46,6 +47,7 @@
         <template x-for="post in posts">
             <div x-text="post.title"></div>
         </template>
+
         <button @click="posts.push({title:'New Post'})" class="bg-blue-800 text-white px-4 py-2 rounded-xl
              active:scale-90 transition-transform duration-150 hover:cursor-ponter">
             Add Post
@@ -64,6 +66,27 @@
                 Remove Text
             </button>
         </div>
+
+        <div x-html="(await axios.get('https://jsonplaceholder.typicode.com/users')).data"></div>
+
+        <!--  x-init && clg -->
+        <div x-init="console.log('This Output is showing from the AlpineJs',true)"></div>
+        <!-- x-init && watch -->
+        <div x-init="$watch('posts', value => console.log(value))">
+            <button @click="console.log(posts)" class="bg-blue-800 text-white px-4 py-2 rounded-xl
+            active:scale-90 transition-transform duration-150 hover:cursor-ponter">
+                Click this to Show the Output in the Console
+            </button>
+        </div>
+        <!-- $dispatch -->
+        <div @notify="alert('This is a Notification')" class="my-6">
+            <button @click="$dispatch('notify')" class="bg-green-800 text-white px-4 py-2 rounded-xl
+            active:scale-90 transition-transform duration-150 hover:cursor-ponter">
+                Notify
+            </button>
+        </div>
+
+
     </div>
 
 </body>
