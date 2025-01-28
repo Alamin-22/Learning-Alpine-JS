@@ -19,6 +19,24 @@
         <button @click="reset()">Reset</button>
 
     </div>
+    
+    <div x-data="{
+        showCompleted: true,
+        tasks: [
+            { title: 'Task 1', completed: true },
+            { title: 'Task 2', completed: false },
+            { title: 'Task 3', completed: true },
+            { title: 'Task 4', completed: false }
+        ]
+    }">
+        <button @click="showCompleted = !showCompleted">Toggle Completed Tasks</button>
+        <h3>Tasks</h3>
+        <ul>
+            <template x-for="task in tasks" :key="task.title">
+                <li x-show="task.completed === showCompleted" x-text="task.title"></li>
+            </template>
+        </ul>
+    </div>
 </body>
 
 </html>
